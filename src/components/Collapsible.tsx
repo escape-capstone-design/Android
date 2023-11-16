@@ -12,13 +12,20 @@ const CollapsibleComponent = ({ question, answer, student }: any) => {
   return (
     <View style={{ paddingTop: 20, marginBottom: 30 }}>
       <TouchableOpacity onPress={toggleCollapse}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-          {isCollapsed ? "내 답안 다시보기" : "내 답안 접기"}
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginBottom: 10,
+            color: "#000",
+          }}
+        >
+          {isCollapsed ? "▸  내 답안 다시보기" : "▾  내 답안 접기"}
         </Text>
       </TouchableOpacity>
 
       <Collapsible collapsed={isCollapsed}>
-        <View style={{ marginTop: 10 }}>
+        <View style={styles.textBox}>
           <Text style={styles.title}>{"문제"}</Text>
           <Text style={styles.text}>{question}</Text>
           <Text style={styles.title}>{"모범 답안"}</Text>
@@ -32,13 +39,22 @@ const CollapsibleComponent = ({ question, answer, student }: any) => {
 };
 
 const styles = StyleSheet.create({
+  textBox: {
+    backgroundColor: "#F6F6F6",
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 10,
+  },
   title: {
-    fontSize: 20,
+    fontSize: 17,
     paddingBottom: 10,
+    fontWeight: "bold",
+    color: "#000",
   },
   text: {
     fontSize: 15,
     paddingBottom: 30,
+    color: "#000",
   },
 });
 

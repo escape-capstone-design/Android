@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-const IngScreen = () => {
+const LoadingScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{"채점중입니다."}</Text>
@@ -14,10 +14,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#ffffff",
   },
   text: {
     fontSize: 20,
   },
 });
 
-export default IngScreen;
+export default LoadingScreen;

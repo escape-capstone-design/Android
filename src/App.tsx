@@ -10,7 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 // navigation
 import QuestionScreen from "./screens/QuestionScreen";
 import StudentScreen from "./screens/StudentScreen";
-import IngScreen from "./screens/IngScreen";
+import LoadingScreen from "./screens/LoadingScreen";
 import ResultScreen from "./screens/ResultScreen";
 
 const Stack = createStackNavigator();
@@ -21,7 +21,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="QuestionScreen">
         <Stack.Screen name="QuestionScreen" component={QuestionScreen} />
         <Stack.Screen name="StudentScreen" component={StudentScreen} />
-        <Stack.Screen name="IngScreen" component={IngScreen} />
+        <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
         <Stack.Screen name="ResultScreen" component={ResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
