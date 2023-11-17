@@ -20,7 +20,7 @@ const CollapsibleComponent = ({ question, answer, student }: any) => {
             color: "#000",
           }}
         >
-          {isCollapsed ? "▸  내 답안 다시보기" : "▾  내 답안 접기"}
+          {isCollapsed ? "▸  나의 답안 다시보기" : "▾  나의 답안 접기"}
         </Text>
       </TouchableOpacity>
 

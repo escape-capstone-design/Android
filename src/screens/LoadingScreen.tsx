@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 
 const LoadingScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{"채점중입니다."}</Text>
+      <ActivityIndicator size="large" color="#99CCFF" />
+      <Text style={styles.text}>{"채점 중입니다."}</Text>
     </View>
   );
 };
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    paddingTop: 15,
   },
 });
 

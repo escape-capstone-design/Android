@@ -13,10 +13,9 @@ const StudentScreen = ({ navigation }: any) => {
   const { questionjson, answerjson }: any = route.params;
   const question = questionjson.question;
   const answer = answerjson.answer;
-  console.log(answer);
 
   const handleButtonPress = () => {
-    navigation.navigate("ResultScreen", {
+    navigation.navigate("LoadingScreen", {
       questionjson: { question },
       answerjson: { answer },
       studentjson: { student },
@@ -29,7 +28,7 @@ const StudentScreen = ({ navigation }: any) => {
         <Text style={styles.questiontitle}>{"Q. 문제"}</Text>
         <Text style={styles.question}>{question}</Text>
       </View>
-      <Text style={styles.title}>{"3. 내 답안을 입력해주세요!"}</Text>
+      <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
       <TextInput
         onChangeText={onChangeStudent}
         value={student}
