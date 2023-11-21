@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Text, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import CollapsibleComponent from "../components/Collapsible";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Loading from "../components/Loading";
 
 const ResultScreen = ({ navigation }: any) => {
   const route = useRoute();
-  const { questionjson, answerjson, studentjson }: any = route.params;
+  const { questionjson, answerjson, studentjson, resultjson }: any =
+    route.params;
   const question = questionjson.question;
   const answer = answerjson.answer;
   const student = studentjson.student;
+  const result = resultjson.result;
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState("");
 
   const handleButtonPress = () => {
     navigation.navigate("StudentScreen", {
@@ -18,37 +24,103 @@ const ResultScreen = ({ navigation }: any) => {
     });
   };
 
-  return (
-    <View style={styles.container}>
-      <View>
-        <CollapsibleComponent
-          question={question}
-          answer={answer}
-          student={student}
-        />
-      </View>
-      <Text style={styles.title}>{"1. 채점 결과"}</Text>
-      <Text style={styles.text}>{"정답!"}</Text>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={styles.title}>{"2. 피드백"}</Text>
-        <TouchableOpacity style={styles.againButton}>
-          <Text style={styles.againText}>⟳</Text>
+  const postFeedback = () => {
+    setLoading(true);
+    return axios
+      .post(
+        "http://10.0.2.2:8000/feedback",
+        JSON.stringify({
+          question: question,
+          correct_answer: answer,
+          answer: student,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 204) {
+          setFeedback(response.data.feedback);
+          console.log(feedback);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    postFeedback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (loading) {
+    // 대기 중
+    return (
+      <View style={styles.container}>
+        <View>
+          <CollapsibleComponent
+            question={question}
+            answer={answer}
+            student={student}
+          />
+        </View>
+        <Text style={styles.title}>{"1. 채점 결과"}</Text>
+        <Text style={styles.text}>{result}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.title}>{"2. 피드백"}</Text>
+          <TouchableOpacity style={styles.againButton}>
+            <Text style={styles.againText}>⟳</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.LoadingBox}>
+          <Loading />
+        </View>
+        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+          <Text style={styles.buttonText}>{"다시 풀기"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("QuestionScreen")}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.textBox}>
-        <Text style={styles.text}>{"피드백"}</Text>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View>
+          <CollapsibleComponent
+            question={question}
+            answer={answer}
+            student={student}
+          />
+        </View>
+        <Text style={styles.title}>{"1. 채점 결과"}</Text>
+        <Text style={styles.text}>{result}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.title}>{"2. 피드백"}</Text>
+          <TouchableOpacity onPress={postFeedback} style={styles.againButton}>
+            <Text style={styles.againText}>⟳</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{feedback}</Text>
+        </View>
+        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+          <Text style={styles.buttonText}>{"다시 풀기"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("QuestionScreen")}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-        <Text style={styles.buttonText}>{"다시 풀기"}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("QuestionScreen")}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -74,6 +146,14 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     padding: 10,
     borderRadius: 10,
+  },
+  LoadingBox: {
+    backgroundColor: "#F6F6F6",
+    marginTop: 10,
+    marginBottom: 50,
+    padding: 10,
+    borderRadius: 10,
+    height: 200,
   },
   button: {
     backgroundColor: "#99CCFF",

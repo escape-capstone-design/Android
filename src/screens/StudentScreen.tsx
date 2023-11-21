@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -13,13 +14,35 @@ const StudentScreen = ({ navigation }: any) => {
   const { questionjson, answerjson }: any = route.params;
   const question = questionjson.question;
   const answer = answerjson.answer;
+  let result = "";
 
-  const handleButtonPress = () => {
-    navigation.navigate("LoadingScreen", {
-      questionjson: { question },
-      answerjson: { answer },
-      studentjson: { student },
-    });
+  const postGrade = () => {
+    return axios
+      .post(
+        "http://10.0.2.2:8000/grade",
+        JSON.stringify({
+          correct_answer: answer,
+          answer: student,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 204) {
+          result = response.data;
+
+          navigation.navigate("ResultScreen", {
+            questionjson: { question },
+            answerjson: { answer },
+            studentjson: { student },
+            resultjson: { result },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -36,7 +59,7 @@ const StudentScreen = ({ navigation }: any) => {
         multiline={true}
       />
       <View style={{ paddingTop: 20 }}>
-        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+        <TouchableOpacity onPress={postGrade} style={styles.button}>
           <Text style={styles.buttonText}>{"채점하기"}</Text>
         </TouchableOpacity>
       </View>
