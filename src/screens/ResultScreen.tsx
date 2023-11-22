@@ -31,8 +31,9 @@ const ResultScreen = ({ navigation }: any) => {
         "http://10.0.2.2:8000/feedback",
         JSON.stringify({
           question: question,
-          correct_answer: answer,
-          answer: student,
+          answer: answer,
+          student_answer: student,
+          grading_result: result,
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -75,7 +76,7 @@ const ResultScreen = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
         <View style={styles.LoadingBox}>
-          <Loading />
+          <Loading ing={"피드백을 생성하고 있습니다."} />
         </View>
         <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
           <Text style={styles.buttonText}>{"다시 풀기"}</Text>
@@ -133,10 +134,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#000",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   text: {
-    fontSize: 15,
+    fontSize: 17,
     color: "#000",
     paddingBottom: 30,
   },

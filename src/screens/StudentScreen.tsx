@@ -3,6 +3,7 @@ import axios from "axios";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Loading from "../components/Loading";
 
 const StudentScreen = ({ navigation }: any) => {
   const [student, setStudent] = useState("");
@@ -14,15 +15,17 @@ const StudentScreen = ({ navigation }: any) => {
   const { questionjson, answerjson }: any = route.params;
   const question = questionjson.question;
   const answer = answerjson.answer;
+  const [loading, setLoading] = useState(false);
   let result = "";
 
   const postGrade = () => {
+    setLoading(true);
     return axios
       .post(
         "http://10.0.2.2:8000/grade",
         JSON.stringify({
-          correct_answer: answer,
-          answer: student,
+          answer: answer,
+          student_answer: student,
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -31,6 +34,8 @@ const StudentScreen = ({ navigation }: any) => {
       .then((response) => {
         if (response.status >= 200 && response.status <= 204) {
           result = response.data;
+          console.log(result);
+          setLoading(false);
 
           navigation.navigate("ResultScreen", {
             questionjson: { question },
@@ -45,26 +50,35 @@ const StudentScreen = ({ navigation }: any) => {
       });
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.textBox}>
-        <Text style={styles.questiontitle}>{"Q. 문제"}</Text>
-        <Text style={styles.question}>{question}</Text>
+  if (loading) {
+    // 대기 중
+    return (
+      <View style={styles.container}>
+        <Loading ing={"채점 중입니다."} />
       </View>
-      <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
-      <TextInput
-        onChangeText={onChangeStudent}
-        value={student}
-        style={styles.input}
-        multiline={true}
-      />
-      <View style={{ paddingTop: 20 }}>
-        <TouchableOpacity onPress={postGrade} style={styles.button}>
-          <Text style={styles.buttonText}>{"채점하기"}</Text>
-        </TouchableOpacity>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.textBox}>
+          <Text style={styles.questiontitle}>{"Q. 문제"}</Text>
+          <Text style={styles.question}>{question}</Text>
+        </View>
+        <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
+        <TextInput
+          onChangeText={onChangeStudent}
+          value={student}
+          style={styles.input}
+          multiline={true}
+        />
+        <View style={{ paddingTop: 20 }}>
+          <TouchableOpacity onPress={postGrade} style={styles.button}>
+            <Text style={styles.buttonText}>{"채점하기"}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   question: {
-    fontSize: 15,
+    fontSize: 17,
     paddingBottom: 30,
   },
   input: {
@@ -97,6 +111,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     backgroundColor: "#F6F6F6",
     borderRadius: 10,
+    fontSize: 17,
   },
   title: {
     fontSize: 20,

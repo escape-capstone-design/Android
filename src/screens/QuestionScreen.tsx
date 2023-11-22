@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     backgroundColor: "#F6F6F6",
     borderRadius: 10,
+    fontSize: 17,
   },
   title: {
     fontSize: 20,
