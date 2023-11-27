@@ -33,7 +33,6 @@ const ResultScreen = ({ navigation }: any) => {
           question: question,
           answer: answer,
           student_answer: student,
-          grading_result: result,
         }),
         {
           headers: { "Content-Type": "application/json" },
