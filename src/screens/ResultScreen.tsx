@@ -14,7 +14,7 @@ const ResultScreen = ({ navigation }: any) => {
   const answer = answerjson.answer;
   const student = studentjson.student;
   const result = resultjson.result;
-  const score = scorejson.score;
+  const score = scorejson.score > 0 ? scorejson.score : 0;
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
