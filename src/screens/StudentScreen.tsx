@@ -17,6 +17,7 @@ const StudentScreen = ({ navigation }: any) => {
   const answer = answerjson.answer;
   const [loading, setLoading] = useState(false);
   let result = "";
+  let score = "";
 
   const postGrade = () => {
     setLoading(true);
@@ -33,8 +34,10 @@ const StudentScreen = ({ navigation }: any) => {
       )
       .then((response) => {
         if (response.status >= 200 && response.status <= 204) {
-          result = response.data;
+          result = response.data.result;
+          score = response.data.score;
           console.log(result);
+          console.log(score);
           setLoading(false);
 
           navigation.navigate("ResultScreen", {
@@ -42,6 +45,7 @@ const StudentScreen = ({ navigation }: any) => {
             answerjson: { answer },
             studentjson: { student },
             resultjson: { result },
+            scorejson: { score },
           });
         }
       })

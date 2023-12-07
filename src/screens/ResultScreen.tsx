@@ -8,12 +8,13 @@ import Loading from "../components/Loading";
 
 const ResultScreen = ({ navigation }: any) => {
   const route = useRoute();
-  const { questionjson, answerjson, studentjson, resultjson }: any =
+  const { questionjson, answerjson, studentjson, resultjson, scorejson }: any =
     route.params;
   const question = questionjson.question;
   const answer = answerjson.answer;
   const student = studentjson.student;
   const result = resultjson.result;
+  const score = scorejson.score;
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
@@ -68,8 +69,10 @@ const ResultScreen = ({ navigation }: any) => {
         </View>
         <Text style={styles.title}>{"1. 채점 결과"}</Text>
         <Text style={styles.text}>{result}</Text>
+        <Text style={styles.title}>{"2. 점수"}</Text>
+        <Text style={styles.text}>{score + "점"}</Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>{"2. 피드백"}</Text>
+          <Text style={styles.title}>{"3. 피드백"}</Text>
           <TouchableOpacity style={styles.againButton}>
             <Text style={styles.againText}>⟳</Text>
           </TouchableOpacity>
@@ -100,8 +103,10 @@ const ResultScreen = ({ navigation }: any) => {
         </View>
         <Text style={styles.title}>{"1. 채점 결과"}</Text>
         <Text style={styles.text}>{result}</Text>
+        <Text style={styles.title}>{"2. 점수"}</Text>
+        <Text style={styles.text}>{score + "점"}</Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>{"2. 피드백"}</Text>
+          <Text style={styles.title}>{"3. 피드백"}</Text>
           <TouchableOpacity onPress={postFeedback} style={styles.againButton}>
             <Text style={styles.againText}>⟳</Text>
           </TouchableOpacity>
