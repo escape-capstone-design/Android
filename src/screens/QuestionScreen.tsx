@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   input: {
-    height: 70,
+    height: 140,
     paddingHorizontal: 8,
     marginBottom: 30,
     flexShrink: 1,

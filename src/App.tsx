@@ -18,9 +18,21 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="QuestionScreen">
-        <Stack.Screen name="QuestionScreen" component={QuestionScreen} />
-        <Stack.Screen name="StudentScreen" component={StudentScreen} />
-        <Stack.Screen name="ResultScreen" component={ResultScreen} />
+        <Stack.Screen
+          name="QuestionScreen"
+          component={QuestionScreen}
+          options={{ title: " " }}
+        />
+        <Stack.Screen
+          name="StudentScreen"
+          component={StudentScreen}
+          options={{ title: " " }}
+        />
+        <Stack.Screen
+          name="ResultScreen"
+          component={ResultScreen}
+          options={{ title: " " }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

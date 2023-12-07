@@ -10,7 +10,7 @@ const CollapsibleComponent = ({ question, answer, student }: any) => {
   };
 
   return (
-    <View style={{ paddingTop: 20, marginBottom: 30 }}>
+    <View style={{ paddingTop: 10, marginBottom: 20 }}>
       <TouchableOpacity onPress={toggleCollapse}>
         <Text
           style={{

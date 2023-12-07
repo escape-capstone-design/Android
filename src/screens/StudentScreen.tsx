@@ -64,10 +64,8 @@ const StudentScreen = ({ navigation }: any) => {
   } else {
     return (
       <View style={styles.container}>
-        <View style={styles.textBox}>
-          <Text style={styles.questiontitle}>{"Q. 문제"}</Text>
-          <Text style={styles.question}>{question}</Text>
-        </View>
+        <Text style={styles.title}>{"Q. 문제"}</Text>
+        <Text style={styles.question}>{question}</Text>
         <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
         <TextInput
           onChangeText={onChangeStudent}
@@ -91,24 +89,23 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  textBox: {
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
+    paddingBottom: 15,
+  },
+  question: {
     backgroundColor: "#F6F6F6",
+    color: "#000",
     marginBottom: 20,
     padding: 10,
     borderRadius: 10,
-  },
-  questiontitle: {
-    fontSize: 20,
-    color: "#000",
-    fontWeight: "bold",
-    paddingBottom: 10,
-  },
-  question: {
     fontSize: 17,
     paddingBottom: 30,
   },
   input: {
-    height: 70,
+    height: 140,
     paddingHorizontal: 8,
     marginBottom: 30,
     flexShrink: 1,
@@ -116,12 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     borderRadius: 10,
     fontSize: 17,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000",
-    paddingBottom: 15,
   },
   button: {
     backgroundColor: "#99CCFF",
