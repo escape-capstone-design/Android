@@ -3,7 +3,7 @@ import axios from "axios";
 import { Text, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import CollapsibleComponent from "../components/Collapsible";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import Loading from "../components/Loading";
 
 const ResultScreen = ({ navigation }: any) => {
@@ -60,69 +60,73 @@ const ResultScreen = ({ navigation }: any) => {
     // 대기 중
     return (
       <View style={styles.container}>
-        <View>
-          <CollapsibleComponent
-            question={question}
-            answer={answer}
-            student={student}
-          />
-        </View>
-        <Text style={styles.title}>{"1. 채점 결과"}</Text>
-        <Text style={styles.text}>{result}</Text>
-        <Text style={styles.title}>{"2. 점수"}</Text>
-        <Text style={styles.text}>{score + "점"}</Text>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>{"3. 피드백"}</Text>
-          <TouchableOpacity style={styles.againButton}>
-            <Text style={styles.againText}>⟳</Text>
+        <ScrollView>
+          <View>
+            <CollapsibleComponent
+              question={question}
+              answer={answer}
+              student={student}
+            />
+          </View>
+          <Text style={styles.title}>{"1. 채점 결과"}</Text>
+          <Text style={styles.text}>{result}</Text>
+          <Text style={styles.title}>{"2. 점수"}</Text>
+          <Text style={styles.text}>{score + "점"}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.title}>{"3. 피드백"}</Text>
+            <TouchableOpacity style={styles.againButton}>
+              <Text style={styles.againText}>⟳</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.LoadingBox}>
+            <Loading ing={"피드백을 생성하고 있습니다."} />
+          </View>
+          <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+            <Text style={styles.buttonText}>{"다시 풀기"}</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.LoadingBox}>
-          <Loading ing={"피드백을 생성하고 있습니다."} />
-        </View>
-        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-          <Text style={styles.buttonText}>{"다시 풀기"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("QuestionScreen")}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("QuestionScreen")}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     );
   } else {
     return (
       <View style={styles.container}>
-        <View>
-          <CollapsibleComponent
-            question={question}
-            answer={answer}
-            student={student}
-          />
-        </View>
-        <Text style={styles.title}>{"1. 채점 결과"}</Text>
-        <Text style={styles.text}>{result}</Text>
-        <Text style={styles.title}>{"2. 점수"}</Text>
-        <Text style={styles.text}>{score + "점"}</Text>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>{"3. 피드백"}</Text>
-          <TouchableOpacity onPress={postFeedback} style={styles.againButton}>
-            <Text style={styles.againText}>⟳</Text>
+        <ScrollView>
+          <View>
+            <CollapsibleComponent
+              question={question}
+              answer={answer}
+              student={student}
+            />
+          </View>
+          <Text style={styles.title}>{"1. 채점 결과"}</Text>
+          <Text style={styles.text}>{result}</Text>
+          <Text style={styles.title}>{"2. 점수"}</Text>
+          <Text style={styles.text}>{score + "점"}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.title}>{"3. 피드백"}</Text>
+            <TouchableOpacity onPress={postFeedback} style={styles.againButton}>
+              <Text style={styles.againText}>⟳</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.textBox}>
+            <Text style={styles.text}>{feedback}</Text>
+          </View>
+          <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+            <Text style={styles.buttonText}>{"다시 풀기"}</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.textBox}>
-          <Text style={styles.text}>{feedback}</Text>
-        </View>
-        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-          <Text style={styles.buttonText}>{"다시 풀기"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("QuestionScreen")}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("QuestionScreen")}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>{"처음으로 돌아가기"}</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 const QuestionScreen = ({ navigation }: any) => {
   const [question, setQuestion] = useState("");
@@ -22,25 +22,27 @@ const QuestionScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{"1. 문제"}</Text>
-      <TextInput
-        onChangeText={onChangeQuestion}
-        value={question}
-        style={styles.input}
-        multiline={true}
-      />
-      <Text style={styles.title}>{"2. 모범 답안"}</Text>
-      <TextInput
-        onChangeText={onChangeAnswer}
-        value={answer}
-        style={styles.input}
-        multiline={true}
-      />
-      <View style={{ paddingTop: 30 }}>
-        <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-          <Text style={styles.buttonText}>{"다음"}</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView>
+        <Text style={styles.title}>{"1. 문제"}</Text>
+        <TextInput
+          onChangeText={onChangeQuestion}
+          value={question}
+          style={styles.input}
+          multiline={true}
+        />
+        <Text style={styles.title}>{"2. 모범 답안"}</Text>
+        <TextInput
+          onChangeText={onChangeAnswer}
+          value={answer}
+          style={styles.input}
+          multiline={true}
+        />
+        <View style={{ paddingTop: 30 }}>
+          <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+            <Text style={styles.buttonText}>{"다음"}</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };

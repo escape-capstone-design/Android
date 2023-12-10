@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import Loading from "../components/Loading";
 
 const StudentScreen = ({ navigation }: any) => {
@@ -64,20 +64,22 @@ const StudentScreen = ({ navigation }: any) => {
   } else {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{"Q. 문제"}</Text>
-        <Text style={styles.question}>{question}</Text>
-        <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
-        <TextInput
-          onChangeText={onChangeStudent}
-          value={student}
-          style={styles.input}
-          multiline={true}
-        />
-        <View style={{ paddingTop: 20 }}>
-          <TouchableOpacity onPress={postGrade} style={styles.button}>
-            <Text style={styles.buttonText}>{"채점하기"}</Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView>
+          <Text style={styles.title}>{"Q. 문제"}</Text>
+          <Text style={styles.question}>{question}</Text>
+          <Text style={styles.title}>{"3. 나의 답안을 입력해주세요!"}</Text>
+          <TextInput
+            onChangeText={onChangeStudent}
+            value={student}
+            style={styles.input}
+            multiline={true}
+          />
+          <View style={{ paddingTop: 20 }}>
+            <TouchableOpacity onPress={postGrade} style={styles.button}>
+              <Text style={styles.buttonText}>{"채점하기"}</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }
